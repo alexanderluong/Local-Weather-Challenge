@@ -1,13 +1,18 @@
+var lat = 0;
+var long = 0;
+
 $(document).ready(function() {
-  getLocation();
-  
-  function getLocation() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
-        // TODO: add something to do for the output
-      });
-    } else {
-      console.log("Geolocation is not supported by this browser.");
-    }
-  }
+	if (navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(setCoordinates);
+	}
+
+	function setCoordinates(position) {
+		lat = position.coords.latitude;
+		long = position.coords.longitude;
+		setBoxText();
+	}
+
+	function setBoxText() {
+		$("#weatherBox").html("lat: " + lat + " long:" + long);
+	}
 });
