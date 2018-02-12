@@ -9,15 +9,16 @@ $(document).ready(function() {
     function setCoordinates(position) {
         lat = position.coords.latitude;
         long = position.coords.longitude;
-        setBoxText();
-        getWeatherFromAPI();
+        getWeatherFromAPI(setBoxText);
+        // setBoxText();
     }
 
-    function setBoxText() {
-        $("#weatherBox").html("lat: " + lat + " long:" + long);
+    function setBoxText(json) {
+        // $("#weatherBox").html("lat: " + lat + " long:" + long);
+        $("#weatherBox").html(json.weather[0].description);
     }
 
-    function getWeatherFromAPI() {
+    function getWeatherFromAPI(callback) {
         console.log("fetching the weather...");
         $.ajax({
             type: "GET",
@@ -25,6 +26,8 @@ $(document).ready(function() {
             url: "https://fcc-weather-api.glitch.me/api/current?lon=" + long + "&lat=" + lat,
             success: function(json) {
                 console.log(json.weather[0].description);
+                console.log(json);
+                setBoxText(json);
             },
             failure: function() {
                 console.log("Failed to get data.");
