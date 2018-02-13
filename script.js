@@ -17,6 +17,7 @@ var iconMap = {
     "snow": "13",
     "mist": "50"
 }
+var hours;
 
 var CELSIUS_SYMBOL = "°c";
 var FAHRENHEIT_SYMBOL = "°f";
@@ -24,6 +25,7 @@ var FAHRENHEIT_SYMBOL = "°f";
 $(document).ready(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(setCoordinates);
+        hours = new Date().getHours();
         $("#unitBtn").on("click", setUpChangeUnitBtn);
     }
 
@@ -37,6 +39,7 @@ $(document).ready(function() {
     function setWeatherText(json) {
         addParagraphTags();
         $("#locationText").html(city + ", " + country);
+        changeWeatherIcon();
         $("#descriptionText").html(description);
         $("#tempText").html(celTemp + " " + CELSIUS_SYMBOL + "<br>");
     }
@@ -75,8 +78,15 @@ $(document).ready(function() {
         total = json;
     }
 
-    function changeWeatherIcon(description) {
-
+    function changeWeatherIcon() {
+        var imageString = "http://openweathermap.org/img/w/";
+        imageString += iconMap[description];
+        if (hours >= 6 || hours <= 18) {
+            imageString += "d.png";
+        } else {
+            imageString += "n.png";
+        }
+        $("#weatherIcon").attr("src", imageString);
     }
 
     function getWeatherFromAPI(callback) {
