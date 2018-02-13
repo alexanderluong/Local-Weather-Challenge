@@ -3,7 +3,8 @@ var long;
 var city;
 var country;
 var description;
-var temp;
+var celTemp;
+var fahTemp;
 
 var CELSIUS_SYMBOL = "°c";
 var FAHRENHEIT_SYMBOL = "°f";
@@ -11,6 +12,9 @@ var FAHRENHEIT_SYMBOL = "°f";
 $(document).ready(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(setCoordinates);
+        $("#unitBtn").on("click", function() {
+
+        });
     }
 
     function setCoordinates(position) {
@@ -22,18 +26,12 @@ $(document).ready(function() {
     function setBoxText(json) {
         $("#weatherBox").html(city + ", " + country + "<br>" +
             description + "<br>" +
-            +temp + " °c<br>");
+            +celTemp + " °c<br>");
     }
 
-    function celsiusToFahrenheit(celcius) {
-        if (typeof celcius === 'number') {
-            return (1.8 * celcius + 32).toFixed(2);
-        }
-    }
-
-    function fahrenheitToCesius(fahrenheit) {
-        if (typeof fahrenheit === 'number') {
-            return ((fahrenheit - 32) * 5 / 9).toFixed(2);
+    function celsiusToFahrenheit(celsius) {
+        if (typeof celsius === 'number') {
+            return (1.8 * celsius + 32).toFixed(2);
         }
     }
 
@@ -44,7 +42,8 @@ $(document).ready(function() {
             dataType: "json",
             url: "https://fcc-weather-api.glitch.me/api/current?lon=" + long + "&lat=" + lat,
             success: function(json) {
-                temp = json.main.temp;
+                celTemp = json.main.temp;
+                fahTemp = celsiusToFahrenheit(celTemp);
                 city = json.name.toLowerCase();
                 country = json.sys.country.toLowerCase();
                 description = json.weather[0].description;
