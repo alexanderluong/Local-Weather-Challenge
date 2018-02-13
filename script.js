@@ -1,8 +1,9 @@
 var lat = 0;
 var long = 0;
+var temp;
+
 var CELCIUS_SYMBOL = "°c";
 var FAHRENHEIT_SYMBOL = "°f";
-var total;
 
 $(document).ready(function() {
     if (navigator.geolocation) {
@@ -16,10 +17,15 @@ $(document).ready(function() {
     }
 
     function setBoxText(json) {
-        // $("#weatherBox").html("lat: " + lat + " long:" + long);
         $("#weatherBox").html(json.name.toLowerCase() + ", " + json.sys.country.toLowerCase() + "<br>" +
             json.weather[0].description + "<br>" +
             +json.main.temp + " °c<br>");
+    }
+
+    function celciusToFahrenheit(celcius) {
+        if (typeof celcius === 'number') {
+            return 1.8 * celcius + 32;
+        }
     }
 
     function getWeatherFromAPI(callback) {
@@ -29,10 +35,7 @@ $(document).ready(function() {
             dataType: "json",
             url: "https://fcc-weather-api.glitch.me/api/current?lon=" + long + "&lat=" + lat,
             success: function(json) {
-                // console.log(json.weather[0].description);
-                total = json;
-                console.log(json);
-                setBoxText(json);
+                callback(json);
             },
             failure: function() {
                 console.log("Failed to get data.");
