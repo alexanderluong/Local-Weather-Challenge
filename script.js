@@ -25,9 +25,9 @@ $(document).ready(function() {
 
     function setWeatherText(json) {
         addParagraphTags();
-        $("#weatherBox").html(city + ", " + country + "<br>" +
-            description + "<br>" +
-            +celTemp + " °c<br>");
+        $("#locationText").html(city + ", " + country);
+        $("#descriptionText").html(description);
+        $("#tempText").html(celTemp + " °c<br>");
     }
 
     function celsiusToFahrenheit(celsius) {
