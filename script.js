@@ -1,8 +1,11 @@
-var lat = 0;
-var long = 0;
+var lat;
+var long;
+var city;
+var country;
+var description;
 var temp;
 
-var CELCIUS_SYMBOL = "°c";
+var CELSIUS_SYMBOL = "°c";
 var FAHRENHEIT_SYMBOL = "°f";
 
 $(document).ready(function() {
@@ -17,14 +20,20 @@ $(document).ready(function() {
     }
 
     function setBoxText(json) {
-        $("#weatherBox").html(json.name.toLowerCase() + ", " + json.sys.country.toLowerCase() + "<br>" +
-            json.weather[0].description + "<br>" +
-            +json.main.temp + " °c<br>");
+        $("#weatherBox").html(city + ", " + country + "<br>" +
+            description + "<br>" +
+            +temp + " °c<br>");
     }
 
-    function celciusToFahrenheit(celcius) {
+    function celsiusToFahrenheit(celcius) {
         if (typeof celcius === 'number') {
-            return 1.8 * celcius + 32;
+            return (1.8 * celcius + 32).toFixed(2);
+        }
+    }
+
+    function fahrenheitToCesius(fahrenheit) {
+        if (typeof fahrenheit === 'number') {
+            return ((fahrenheit - 32) * 5 / 9).toFixed(2);
         }
     }
 
@@ -35,6 +44,10 @@ $(document).ready(function() {
             dataType: "json",
             url: "https://fcc-weather-api.glitch.me/api/current?lon=" + long + "&lat=" + lat,
             success: function(json) {
+                temp = json.main.temp;
+                city = json.name.toLowerCase();
+                country = json.sys.country.toLowerCase();
+                description = json.weather[0].description;
                 callback(json);
             },
             failure: function() {
