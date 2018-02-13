@@ -1,10 +1,16 @@
 body {
     font-family: 'Quicksand', sans-serif;
+    padding-left: 2%;
+    padding-top: 2%;
 }
 
 p {
     margin-top: 0;
     margin-bottom: 3px;
+}
+
+footer {
+    margin-top: 1%;
 }
 
 #unitBtn {
