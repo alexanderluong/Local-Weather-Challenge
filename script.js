@@ -6,6 +6,17 @@ var description;
 var celTemp;
 var fahTemp;
 var celFlag = true;
+var iconMap = {
+    "clear sky": "01",
+    "few clouds": "02",
+    "scattered clouds": "03",
+    "broken clouds": "04",
+    "shower rain": "09",
+    "rain": "10",
+    "thunderstorm": "11",
+    "snow": "13",
+    "mist": "50"
+}
 
 var CELSIUS_SYMBOL = "°c";
 var FAHRENHEIT_SYMBOL = "°f";
@@ -61,6 +72,11 @@ $(document).ready(function() {
         city = json.name.toLowerCase();
         country = json.sys.country.toLowerCase();
         description = json.weather[0].description;
+        total = json;
+    }
+
+    function changeWeatherIcon(description) {
+
     }
 
     function getWeatherFromAPI(callback) {
