@@ -16,3 +16,10 @@ footer {
 #unitBtn {
     margin-top: 0.5em;
 }
+
+hr {
+    width: 25%;
+    display: block;
+    text-align: left;
+    margin-left: 0;
+}
