@@ -81,12 +81,13 @@ $(document).ready(function() {
     function changeWeatherIcon() {
         var imageString = "http://openweathermap.org/img/w/";
         imageString += iconMap[description];
-        if (hours >= 6 || hours <= 18) {
+        if (hours >= 6 && hours <= 18) {
             imageString += "d.png";
         } else {
             imageString += "n.png";
         }
         $("#weatherIcon").attr("src", imageString);
+        $("#weatherIcon").attr("alt", description);
     }
 
     function getWeatherFromAPI(callback) {
