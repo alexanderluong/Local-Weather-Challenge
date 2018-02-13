@@ -20,10 +20,11 @@ $(document).ready(function() {
     function setCoordinates(position) {
         lat = position.coords.latitude;
         long = position.coords.longitude;
-        getWeatherFromAPI(setBoxText);
+        getWeatherFromAPI(setWeatherText);
     }
 
-    function setBoxText(json) {
+    function setWeatherText(json) {
+        addParagraphTags();
         $("#weatherBox").html(city + ", " + country + "<br>" +
             description + "<br>" +
             +celTemp + " °c<br>");
@@ -33,6 +34,11 @@ $(document).ready(function() {
         if (typeof celsius === 'number') {
             return (1.8 * celsius + 32).toFixed(2);
         }
+    }
+
+    function addParagraphTags() {
+        $("#descriptionDiv").html("<p id=\"descriptionText\"></p>");
+        $("#tempDiv").html("<p id=\"tempText\"></p>");
     }
 
     function getWeatherFromAPI(callback) {
