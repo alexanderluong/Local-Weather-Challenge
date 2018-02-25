@@ -3,21 +3,38 @@ var long;
 var city;
 var country;
 var description;
+var id;
 var celTemp;
 var fahTemp;
 var celFlag = true;
 var iconMap = {
-    "clear sky": "01",
-    "few clouds": "02",
-    "scattered clouds": "03",
-    "broken clouds": "04",
-    "shower rain": "09",
-    "rain": "10",
-    "thunderstorm": "11",
-    "snow": "13",
-    "mist": "50"
+    "20": "11",
+    "21": "11",
+    "22": "11",
+    "23": "11",
+    "30": "09",
+    "31": "09",
+    "32": "09",
+    "50": "10",
+    "51": "13",
+    "52": "13",
+    "53": "13",
+    "60": "13",
+    "61": "13",
+    "62": "13",
+    "70": "50",
+    "71": "50",
+    "72": "50",
+    "73": "50",
+    "74": "50",
+    "75": "50",
+    "76": "50",
+    "77": "50",
+    "78": "50",
+    "80": "02",
 }
 var hours;
+var returns;
 
 var CELSIUS_SYMBOL = "°c";
 var FAHRENHEIT_SYMBOL = "°f";
@@ -75,12 +92,13 @@ $(document).ready(function() {
         city = json.name.toLowerCase();
         country = json.sys.country.toLowerCase();
         description = json.weather[0].description;
-        total = json;
+        id = json.weather[0].id.toString();
     }
 
     function changeWeatherIcon() {
         var imageString = "http://openweathermap.org/img/w/";
-        imageString += iconMap[description];
+        var weatherDigits = id.substring(0, 2);
+        imageString += iconMap[weatherDigits];
         if (hours >= 6 && hours <= 18) {
             imageString += "d.png";
         } else {
